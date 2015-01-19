@@ -22,6 +22,7 @@ setenv       FFTW_VERSION       $VERSION
 setenv       FFTW_DIR           /apprepo/$::env(SITE)/$::env(OS)/$::env(ARCH)/$NAME/$VERSION
 prepend-path LD_LIBRARY_PATH   $::env(FFTW_DIR)/lib
 prepend-path GCC_INCLUDE_DIR   $::env(FFTW_DIR)/include
+prepend-path CPATH             $::env(FFTW_DIR)/include
 MODULE_FILE
 ) > modules/$VERSION
 
