@@ -2,8 +2,6 @@ module load ci
 echo ""
 cd $WORKSPACE/$NAME-$VERSION
 make check
-
-
 echo $?
 
 make install # DESTDIR=$SOFT_DIR
@@ -33,7 +31,9 @@ cp modules/$VERSION $LIBRARIES_MODULES/$NAME
 module avail
 module add  openmpi-x86_64
 module add $NAME/$VERSION
-cd $WORKSPACE/$NAME-$VERSION
+cd $WORKSPACE
+echo $PWD
+ls
 g++ -lfftw3 hello-world.cpp -o hello-world
 ./hello-world
 
