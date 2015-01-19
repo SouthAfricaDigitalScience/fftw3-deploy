@@ -29,5 +29,5 @@ else
 fi
 tar -xvzf $SRC_DIR/$SOURCE_FILE -C $WORKSPACE
 cd $WORKSPACE/$NAME-$VERSION
-./configure --prefix $SOFT_DIR --enable-opemnmpi --enable-shared
+./configure --prefix $SOFT_DIR --enable-opemnmpi --enable-shared CFLAGS='-fPIC'
 make -j 8
