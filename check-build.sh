@@ -31,6 +31,7 @@ mkdir -p $LIBRARIES_MODULES/$NAME
 cp modules/$VERSION $LIBRARIES_MODULES/$NAME
 
 module avail
+module add  openmpi-x86_64
 module add $NAME/$VERSION
 
 g++ -lfftw3 hello-world.cpp -o hello-world
