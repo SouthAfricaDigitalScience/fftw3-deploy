@@ -21,7 +21,7 @@ module-whatis   "$NAME $VERSION."
 setenv       FFTW_VERSION       $VERSION
 setenv       FFTW_DIR           /apprepo/$::env(SITE)/$::env(OS)/$::env(ARCH)/$NAME/$VERSION
 prepend-path LD_LIBRARY_PATH   $::env(FFTW_DIR)/lib
-prepend-path GCC_INCLUDE_DIR   $::env(FFTW_DIR)/include
+prepend-path FFTW_INCLUDE_DIR   $::env(FFTW_DIR)/include
 prepend-path CPATH             $::env(FFTW_DIR)/include
 MODULE_FILE
 ) > modules/$VERSION
@@ -35,9 +35,10 @@ module add $NAME/$VERSION
 cd $WORKSPACE
 echo $PWD
 ls
-g++ -lfftw3 hello-world.cpp -o hello-world
+echo $LD_LIBRARY_PATH
+g++ -lfftw3 hello-world.cpp -o hello-world -L$FFTW_DIR/lib
 ./hello-world
 
 # now try mpi version
-mpic++ -lfftw3 hello-world-mpi.cpp -o hello-world-mpi
+mpic++ -lfftw3 hello-world-mpi.cpp -o hello-world-mpi -L$FFTW_DIR/lib
 mpirun ./hello-world-mpi
