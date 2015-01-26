@@ -1,29 +1,66 @@
-int main(int argc, char **argv) {
-         const ptrdiff_t N0 = ..., N1 = ...;
-         fftw_plan plan;
-         fftw_complex *data;
-         ptrdiff_t alloc_local, local_n0, local_0_start, i, j;
+/* from https://github.com/undees/fftw-example/blob/master/fftw_example.c */
+/* Start reading here */
+#include <fftw3.h>
+#include <mpi.h>
+#include <fftw3-mpi.h>
+#define NUM_POINTS 64
 
-         MPI_Init(&argc, &argv);
-         fftw_mpi_init();
 
-         /* get local data size and allocate */
-         alloc_local = fftw_mpi_local_size_2d(N0, N1, MPI_COMM_WORLD,
-                                              &local_n0, &local_0_start);
-         data = fftw_alloc_complex(alloc_local);
+/* Never mind this bit */
 
-         /* create plan for in-place forward DFT */
-         plan = fftw_mpi_plan_dft_2d(N0, N1, data, data, MPI_COMM_WORLD,
-                                     FFTW_FORWARD, FFTW_ESTIMATE);
+#include <stdio.h>
+#include <math.h>
 
-         /* initialize data to some function my_function(x,y) */
-         for (i = 0; i < local_n0; ++i) for (j = 0; j < N1; ++j)
-            data[i*N1 + j] = my_function(local_0_start + i, j);
+#define REAL 0
+#define IMAG 1
 
-         /* compute transforms, in-place, as many times as desired */
-         fftw_execute(plan);
+void acquire_from_somewhere(fftw_complex* signal) {
+  /* Generate two sine waves of different frequencies and
+  * amplitudes.
+  */
 
-         fftw_destroy_plan(plan);
+  int i;
+  for (i = 0; i < NUM_POINTS; ++i) {
+    double theta = (double)i / (double)NUM_POINTS * M_PI;
 
-         MPI_Finalize();
+    signal[i][REAL] = 1.0 * cos(10.0 * theta) +
+    0.5 * cos(25.0 * theta);
+
+    signal[i][IMAG] = 1.0 * sin(10.0 * theta) +
+    0.5 * sin(25.0 * theta);
+  }
+}
+
+void do_something_with(fftw_complex* result) {
+  int i;
+  for (i = 0; i < NUM_POINTS; ++i) {
+    double mag = sqrt(result[i][REAL] * result[i][REAL] +
+    result[i][IMAG] * result[i][IMAG]);
+
+    printf("%g\n", mag);
+  }
+}
+
+
+/* Resume reading here */
+
+int main() {
+
+  fftw_mpi_init();
+  fftw_complex signal[NUM_POINTS];
+  fftw_complex result[NUM_POINTS];
+
+  fftw_plan plan = fftw_plan_dft_1d(NUM_POINTS,
+  signal,
+  result,
+  FFTW_FORWARD,
+  FFTW_ESTIMATE);
+
+  acquire_from_somewhere(signal);
+  fftw_execute(plan);
+  do_something_with(result);
+
+  fftw_destroy_plan(plan);
+
+  return 0;
 }
