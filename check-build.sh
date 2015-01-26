@@ -40,5 +40,5 @@ g++ -lfftw3 hello-world.cpp -o hello-world -L$FFTW_DIR/lib
 ./hello-world
 
 # now try mpi version
-mpic++ -lfftw3 hello-world-mpi.cpp -o hello-world-mpi -L$FFTW_DIR/lib
+mpic++ -lfftw3 hello-world-mpi.cpp -o hello-world-mpi -L$FFTW_DIR/lib -I$FFTW_DIR/include
 mpirun ./hello-world-mpi

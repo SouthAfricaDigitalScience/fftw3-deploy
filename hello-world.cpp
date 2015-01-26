@@ -2,6 +2,7 @@
 /* Start reading here */
 
 #include <fftw3.h>
+#include <mpi.h>
 
 #define NUM_POINTS 64
 
