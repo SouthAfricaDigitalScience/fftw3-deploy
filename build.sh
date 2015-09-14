@@ -1,6 +1,7 @@
 #!/bin/bash
 
 module add ci
+module add openmpi
 # first check if the directory has been checked out at all
 SOURCE_FILE=$NAME-$VERSION.tar.gz
 
