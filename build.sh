@@ -35,7 +35,7 @@ elif [ -e ${SRC_DIR}/${SOURCE_FILE}.lock ] ; then
 else
   echo "continuing from previous builds, using source at " ${SRC_DIR}/${SOURCE_FILE}
 fi
-tar -xvzf ${SRC_DIR}/${SOURCE_FILE} -C ${WORKSPACE}
+tar -xvzf ${SRC_DIR}/${SOURCE_FILE} -C ${WORKSPACE} --skip-old-files
 cd ${WORKSPACE}/${NAME}-${VERSION}
 mkdir build-${BUILD_NUMBER}
 cd build-${BUILD_NUMBER}
