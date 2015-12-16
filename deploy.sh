@@ -13,7 +13,7 @@ echo "Configuring the deploy"
 CFLAGS='-fPIC' ../configure --prefix $SOFT_DIR-gcc-${GCC_VERSION}-mpi-${OPENMPI_VERSION} --enable-mpi --enable-shared --enable-static
 make install
 echo "Creating the modules file directory ${LIBRARIES_MODULES}"
-mkdir -p ${LIBRARIES_MODULES}/${NAME}-gcc-${GCC_VERSION}-mpi-${OPENMPI_VERSION}
+mkdir -p ${LIBRARIES_MODULES}/${NAME}
 (
 cat <<MODULE_FILE
 #%Module1.0
