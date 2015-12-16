@@ -49,7 +49,7 @@ echo "executing serial code"
 
 # now try mpi version
 echo "Compiling MPI code"
-mpic++ hello-world-mpi.cpp -lfftw3 -lfftw3_mpi -L${FFTW_DIR}/lib -I${FFTW_DIR}/include -o hello-world-mpi
+mpic++ hello-world-mpi.cpp -L${FFTW_DIR}/lib -I${FFTW_DIR}/include -lfftw3 -lfftw3_mpi  -o hello-world-mpi
 #mpic++ -lfftw3 hello-world-mpi.cpp -o hello-world-mpi -L$FFTW_DIR/lib -I$FFTW_DIR/include
 echo "Disabling executing MPI code for now"
 mpirun ./hello-world-mpi

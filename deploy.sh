@@ -31,14 +31,14 @@ module add gcc/${GCC_VERSION}
 module add openmpi/${OPENMPI_VERSION}-gcc-${GCC_VERSION}
 
 module-whatis   "$NAME $VERSION. compiled for OpenMPI ${OPENMPI_VERSION} and GCC version ${GCC_VERSION}"
-setenv       OPENMPI_VERSION       $VERSION
-setenv       OPENMPI_DIR           $::env(CVMFS_DIR)/$::env(SITE)/$::env(OS)/$::env(ARCH)/$NAME/$VERSION-gcc-${GCC_VERSION}-mpi-${OPENMPI_VERSION}
+setenv       FFTW_VERSION       $VERSION
+setenv       FFTW_DIR           $::env(CVMFS_DIR)/$::env(SITE)/$::env(OS)/$::env(ARCH)/$NAME/$VERSION-gcc-${GCC_VERSION}-mpi-${OPENMPI_VERSION}
 
-prepend-path 	 PATH            $::env(OPENMPI_DIR)/bin
-prepend-path    PATH            $::env(OPENMPI_DIR)/include
-prepend-path    PATH            $::env(OPENMPI_DIR)/bin
-prepend-path    MANPATH         $::env(OPENMPI_DIR)/man
-prepend-path    LD_LIBRARY_PATH $::env(OPENMPI_DIR)/lib
+prepend-path 	  PATH            $::env(FFTW_DIR)/bin
+prepend-path    PATH            $::env(FFTW_DIR)/include
+prepend-path    PATH            $::env(FFTW_DIR)/bin
+prepend-path    MANPATH         $::env(FFTW_DIR)/man
+prepend-path    LD_LIBRARY_PATH $::env(FFTW_DIR)/lib
 MODULE_FILE
 ) > ${LIBRARIES_MODULES}/${NAME}/${VERSION}-gcc-${GCC_VERSION}-mpi-${OPENMPI_VERSION}
 
@@ -62,7 +62,7 @@ echo "executing serial code"
 
 # now try mpi version
 echo "Compiling MPI code"
-mpic++ hello-world-mpi.cpp -lfftw3 -lfftw3_mpi -L${FFTW_DIR}/lib -I${FFTW_DIR}/include -o hello-world-mpi
+mpic++ hello-world-mpi.cpp -L${FFTW_DIR}/lib -I${FFTW_DIR}/include -lfftw3 -lfftw3_mpi  -o hello-world-mpi
 #mpic++ -lfftw3 hello-world-mpi.cpp -o hello-world-mpi -L$FFTW_DIR/lib -I$FFTW_DIR/include
 echo "Disabling executing MPI code for now"
 mpirun ./hello-world-mpi
