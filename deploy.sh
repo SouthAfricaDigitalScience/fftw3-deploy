@@ -72,5 +72,5 @@ echo "executing serial code"
 echo "Compiling MPI code"
 mpic++ hello-world-mpi.cpp -L${FFTW_DIR}/lib -I${FFTW_DIR}/include -lfftw3 -lfftw3_mpi  -o hello-world-mpi
 #mpic++ -lfftw3 hello-world-mpi.cpp -o hello-world-mpi -L$FFTW_DIR/lib -I$FFTW_DIR/include
-echo "Disabling executing MPI code for now"
-mpirun -n2 ./hello-world-mpi
+echo "executing MPI code"
+mpirun ./hello-world-mpi
