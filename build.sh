@@ -1,18 +1,10 @@
 #!/bin/bash -e
 . /etc/profile.d/modules.sh
 module add ci
+module add gcc/${GCC_VERSION}
 module add openmpi/${OPENMPI_VERSION}-gcc-${GCC_VERSION}
 # first check if the directory has been checked out at all
 SOURCE_FILE=${NAME}-${VERSION}.tar.gz
-
-echo "REPO_DIR is "
-echo $REPO_DIR
-echo "SRC_DIR is "
-echo $SRC_DIR
-echo "WORKSPACE is "
-echo $WORKSPACE
-echo "SOFT_DIR is"
-echo $SOFT_DIR
 
 mkdir -p ${WORKSPACE}
 mkdir -p ${SRC_DIR}
@@ -39,5 +31,9 @@ tar -xvzf ${SRC_DIR}/${SOURCE_FILE} -C ${WORKSPACE} --skip-old-files
 cd ${WORKSPACE}/${NAME}-${VERSION}
 mkdir build-${BUILD_NUMBER}
 cd build-${BUILD_NUMBER}
-CFLAGS='-fPIC' ../configure --prefix $SOFT_DIR-gcc-${GCC_VERSION}-mpi-${OPENMPI_VERSION} --enable-mpi --enable-shared --enable-static
+CFLAGS='-fPIC' ../configure \
+--prefix=$SOFT_DIR-gcc-${GCC_VERSION}-mpi-${OPENMPI_VERSION} \
+--enable-mpi \
+--enable-shared \
+--enable-static
 make

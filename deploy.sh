@@ -3,6 +3,7 @@
 . /etc/profile.d/modules.sh
 echo ${SOFT_DIR}
 module add deploy
+module add gcc/${GCC_VERSION}
 module add openmpi/${OPENMPI_VERSION}-gcc-${GCC_VERSION}
 
 echo ${SOFT_DIR}-gcc-${GCC_VERSION}-mpi-${OPENMPI_VERSION}
@@ -10,7 +11,11 @@ cd ${WORKSPACE}/${NAME}-${VERSION}/build-${BUILD_NUMBER}
 make distclean
 echo "All tests have passed, will now build into ${SOFT_DIR}-gcc-${GCC_VERSION}"
 echo "Configuring the deploy"
-CFLAGS='-fPIC' ../configure --prefix $SOFT_DIR-gcc-${GCC_VERSION}-mpi-${OPENMPI_VERSION} --enable-mpi --enable-shared --enable-static
+CFLAGS='-fPIC' ../configure  \
+--prefix=$SOFT_DIR-gcc-${GCC_VERSION}-mpi-${OPENMPI_VERSION} \
+--enable-mpi \
+--enable-shared \
+--enable-static
 make install
 echo "Creating the modules file directory ${LIBRARIES_MODULES}"
 mkdir -p ${LIBRARIES_MODULES}/${NAME}
@@ -65,4 +70,4 @@ echo "Compiling MPI code"
 mpic++ hello-world-mpi.cpp -L${FFTW_DIR}/lib -I${FFTW_DIR}/include -lfftw3 -lfftw3_mpi  -o hello-world-mpi
 #mpic++ -lfftw3 hello-world-mpi.cpp -o hello-world-mpi -L$FFTW_DIR/lib -I$FFTW_DIR/include
 echo "Disabling executing MPI code for now"
-mpirun ./hello-world-mpi
+mpirun -n2 ./hello-world-mpi

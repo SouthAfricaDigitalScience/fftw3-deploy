@@ -1,6 +1,7 @@
 #!/bin/bash -e
 . /etc/profile.d/modules.sh
-module load ci
+module add ci
+module add gcc/${GCC_VERSION}
 module add openmpi/${OPENMPI_VERSION}-gcc-${GCC_VERSION}
 echo ""
 cd ${WORKSPACE}/${NAME}-${VERSION}/build-${BUILD_NUMBER}
