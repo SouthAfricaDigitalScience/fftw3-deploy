@@ -20,7 +20,6 @@ CFLAGS='-fPIC' ../configure  \
 --enable-openmp \
 --enable-shared \
 --enable-static \
---enable-single \
 --enable-long-double \
 --enable-quad-precision \
 --enable-threads

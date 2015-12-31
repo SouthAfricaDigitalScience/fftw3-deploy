@@ -3,7 +3,7 @@
 module add ci
 module add gmp
 module add mpfr
-module add mpc 
+module add mpc
 module add gcc/${GCC_VERSION}
 module add openmpi/${OPENMPI_VERSION}-gcc-${GCC_VERSION}
 # first check if the directory has been checked out at all
@@ -40,7 +40,6 @@ CFLAGS='-fPIC' ../configure \
 --enable-openmp \
 --enable-shared \
 --enable-static \
---enable-single \
 --enable-long-double \
 --enable-quad-precision \
 --enable-threads
