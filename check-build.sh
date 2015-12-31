@@ -1,6 +1,9 @@
 #!/bin/bash -e
 . /etc/profile.d/modules.sh
 module add ci
+module add gmp
+module add mpfr
+module add mpc 
 module add gcc/${GCC_VERSION}
 module add openmpi/${OPENMPI_VERSION}-gcc-${GCC_VERSION}
 echo ""

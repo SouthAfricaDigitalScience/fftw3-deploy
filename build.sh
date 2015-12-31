@@ -1,6 +1,9 @@
 #!/bin/bash -e
 . /etc/profile.d/modules.sh
 module add ci
+module add gmp
+module add mpfr
+module add mpc 
 module add gcc/${GCC_VERSION}
 module add openmpi/${OPENMPI_VERSION}-gcc-${GCC_VERSION}
 # first check if the directory has been checked out at all
@@ -34,6 +37,11 @@ cd build-${BUILD_NUMBER}
 CFLAGS='-fPIC' ../configure \
 --prefix=$SOFT_DIR-gcc-${GCC_VERSION}-mpi-${OPENMPI_VERSION} \
 --enable-mpi \
+--enable-openmp \
 --enable-shared \
---enable-static
-make
+--enable-static \
+--enable-single \
+--enable-long-double \
+--enable-quad-precision \
+--enable-threads
+make -j2

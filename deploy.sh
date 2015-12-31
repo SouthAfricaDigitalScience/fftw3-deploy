@@ -17,8 +17,13 @@ echo "Configuring the deploy"
 CFLAGS='-fPIC' ../configure  \
 --prefix=$SOFT_DIR-gcc-${GCC_VERSION}-mpi-${OPENMPI_VERSION} \
 --enable-mpi \
+--enable-openmp \
 --enable-shared \
---enable-static
+--enable-static \
+--enable-single \
+--enable-long-double \
+--enable-quad-precision \
+--enable-threads
 make install
 echo "Creating the modules file directory ${LIBRARIES_MODULES}"
 mkdir -p ${LIBRARIES_MODULES}/${NAME}
