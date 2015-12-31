@@ -41,6 +41,5 @@ CFLAGS='-fPIC' ../configure \
 --enable-shared \
 --enable-static \
 --enable-long-double \
---enable-quad-precision \
 --enable-threads
 make -j2

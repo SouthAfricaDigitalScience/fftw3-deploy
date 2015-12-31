@@ -21,7 +21,6 @@ CFLAGS='-fPIC' ../configure  \
 --enable-shared \
 --enable-static \
 --enable-long-double \
---enable-quad-precision \
 --enable-threads
 make install
 echo "Creating the modules file directory ${LIBRARIES_MODULES}"
