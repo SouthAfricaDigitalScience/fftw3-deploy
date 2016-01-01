@@ -32,15 +32,17 @@ else
 fi
 tar -xvzf ${SRC_DIR}/${SOURCE_FILE} -C ${WORKSPACE} --skip-old-files
 cd ${WORKSPACE}/${NAME}-${VERSION}
+# we need single precision and sse for gromacs
 mkdir build-${BUILD_NUMBER}
 cd build-${BUILD_NUMBER}
+#
 CFLAGS='-fPIC' ../configure \
 --prefix=$SOFT_DIR-gcc-${GCC_VERSION}-mpi-${OPENMPI_VERSION} \
 --enable-mpi \
 --enable-openmp \
 --enable-shared \
 --enable-static \
---enable-long-double \
+--enable-single \
 --enable-threads \
 --enable-sse
 make -j2

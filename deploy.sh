@@ -20,7 +20,7 @@ CFLAGS='-fPIC' ../configure  \
 --enable-openmp \
 --enable-shared \
 --enable-static \
---enable-long-double \
+--enable-single \
 --enable-threads \
 --enable-sse
 make install
