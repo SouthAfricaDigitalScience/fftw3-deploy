@@ -8,7 +8,7 @@ module add mpfr
 module add gmp
 module add gcc/${GCC_VERSION}
 module add openmpi/${OPENMPI_VERSION}-gcc-${GCC_VERSION}
-
+# we need sse and single precision for gromacs
 echo ${SOFT_DIR}-gcc-${GCC_VERSION}-mpi-${OPENMPI_VERSION}
 cd ${WORKSPACE}/${NAME}-${VERSION}/build-${BUILD_NUMBER}
 make distclean
@@ -22,7 +22,7 @@ CFLAGS='-fPIC' ../configure  \
 --enable-static \
 --enable-single \
 --enable-threads \
---enable-sse
+--enable-sse2
 make install
 echo "Creating the modules file directory ${LIBRARIES_MODULES}"
 mkdir -p ${LIBRARIES_MODULES}/${NAME}
