@@ -43,5 +43,6 @@ CFLAGS='-fPIC' ../configure \
 --enable-shared \
 --enable-single \
 --enable-threads \
---enable-sse2
+--enable-sse2 \
+--with-pic
 make -j2
