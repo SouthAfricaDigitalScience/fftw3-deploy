@@ -19,7 +19,6 @@ CFLAGS='-fPIC' ../configure  \
 --enable-mpi \
 --enable-openmp \
 --enable-shared \
---enable-static \
 --enable-single \
 --enable-threads \
 --enable-sse2
