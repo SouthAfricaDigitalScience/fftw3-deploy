@@ -19,7 +19,6 @@ CFLAGS='-fPIC' ../configure  \
 --enable-mpi \
 --enable-openmp \
 --enable-shared \
---enable-single \
 --enable-threads \
 --enable-sse2
 make install
@@ -76,4 +75,4 @@ echo "Compiling MPI code"
 mpic++ hello-world-mpi.cpp -L${FFTW_DIR}/lib -I${FFTW_DIR}/include -lfftw3 -lfftw3_mpi  -o hello-world-mpi
 #mpic++ -lfftw3 hello-world-mpi.cpp -o hello-world-mpi -L$FFTW_DIR/lib -I$FFTW_DIR/include
 echo "executing MPI code"
-mpirun ./hello-world-mpi
+time mpirun -np 2 ./hello-world-mpi

@@ -3,7 +3,7 @@
 module add ci
 module add gmp
 module add mpfr
-module add mpc 
+module add mpc
 module add gcc/${GCC_VERSION}
 module add openmpi/${OPENMPI_VERSION}-gcc-${GCC_VERSION}
 echo ""
@@ -55,5 +55,5 @@ echo "executing serial code"
 echo "Compiling MPI code"
 mpic++ hello-world-mpi.cpp -L${FFTW_DIR}/lib -I${FFTW_DIR}/include -lfftw3 -lfftw3_mpi  -o hello-world-mpi
 #mpic++ -lfftw3 hello-world-mpi.cpp -o hello-world-mpi -L$FFTW_DIR/lib -I$FFTW_DIR/include
-echo "Disabling executing MPI code for now"
-mpirun ./hello-world-mpi
+echo "executing MPI code for now"
+time mpirun -np 2 ./hello-world-mpi

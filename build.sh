@@ -41,8 +41,7 @@ CFLAGS='-fPIC' ../configure \
 --enable-mpi \
 --enable-openmp \
 --enable-shared \
---enable-single \
 --enable-threads \
 --enable-sse2 \
 --with-pic
-make -j2
+make -j2 all
