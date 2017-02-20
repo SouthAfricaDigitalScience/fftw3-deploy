@@ -44,4 +44,4 @@ CFLAGS='-fPIC' ../configure \
 --enable-threads \
 --enable-sse2 \
 --with-pic
-make -j2 all
+make all

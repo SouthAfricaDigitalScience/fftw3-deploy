@@ -21,6 +21,7 @@ CFLAGS='-fPIC' ../configure  \
 --enable-shared \
 --enable-threads \
 --enable-sse2
+make all
 make install
 echo "Creating the modules file directory ${LIBRARIES_MODULES}"
 mkdir -p ${LIBRARIES_MODULES}/${NAME}
