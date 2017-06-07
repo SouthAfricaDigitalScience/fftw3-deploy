@@ -23,8 +23,8 @@ CFLAGS='-fPIC' ../configure  \
 --enable-sse2
 make all
 make install
-echo "Creating the modules file directory ${LIBRARIES_MODULES}"
-mkdir -p ${LIBRARIES_MODULES}/${NAME}
+echo "Creating the modules file directory ${LIBRARIES}"
+mkdir -p ${LIBRARIES}/${NAME}
 (
 cat <<MODULE_FILE
 #%Module1.0
@@ -51,7 +51,7 @@ prepend-path    PATH            $::env(FFTW_DIR)/bin
 prepend-path    MANPATH         $::env(FFTW_DIR)/man
 prepend-path    LD_LIBRARY_PATH $::env(FFTW_DIR)/lib
 MODULE_FILE
-) > ${LIBRARIES_MODULES}/${NAME}/${VERSION}-gcc-${GCC_VERSION}-mpi-${OPENMPI_VERSION}
+) > ${LIBRARIES}/${NAME}/${VERSION}-gcc-${GCC_VERSION}-mpi-${OPENMPI_VERSION}
 
 
 # Testing module
