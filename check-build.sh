@@ -1,18 +1,23 @@
 #!/bin/bash -e
 . /etc/profile.d/modules.sh
 module add ci
-module add gmp
-module add mpfr
-module add mpc
 module add gcc/${GCC_VERSION}
 module add openmpi/${OPENMPI_VERSION}-gcc-${GCC_VERSION}
 echo ""
-cd ${WORKSPACE}/${NAME}-${VERSION}/build-${BUILD_NUMBER}
-echo "Making check"
+cd ${WORKSPACE}/${NAME}-${VERSION}/build-${BUILD_NUMBER}-float
+echo "Making check in float"
+# check will check only the last build, fo fa
 make check
-echo $?
-echo "Running Make Install"
+echo "making install in float"
 make install
+echo $?
+cd ${WORKSPACE}/${NAME}-${VERSION}/build-${BUILD_NUMBER}-double
+echo "Making check in double"
+# check will check only the last build, fo fa
+make check
+echo "making install in double"
+make install
+echo $?
 
 mkdir -p modules
 

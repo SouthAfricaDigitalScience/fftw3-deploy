@@ -1,9 +1,6 @@
 #!/bin/bash -e
 . /etc/profile.d/modules.sh
 module add ci
-module add gmp
-module add mpfr
-module add mpc
 module add gcc/${GCC_VERSION}
 module add openmpi/${OPENMPI_VERSION}-gcc-${GCC_VERSION}
 # first check if the directory has been checked out at all
@@ -33,8 +30,9 @@ fi
 tar -xvzf ${SRC_DIR}/${SOURCE_FILE} -C ${WORKSPACE} --skip-old-files
 cd ${WORKSPACE}/${NAME}-${VERSION}
 # we need single precision and sse for gromacs
-mkdir build-${BUILD_NUMBER}
-cd build-${BUILD_NUMBER}
+mkdir build-${BUILD_NUMBER}-float
+mkdir build-${BUILD_NUMBER}-double
+cd ${WORKSPACE}/${NAME}-${VERSION}/build-${BUILD_NUMBER}-float
 #
 CFLAGS='-fPIC' ../configure \
 --prefix=$SOFT_DIR-gcc-${GCC_VERSION}-mpi-${OPENMPI_VERSION} \
@@ -43,5 +41,17 @@ CFLAGS='-fPIC' ../configure \
 --enable-shared \
 --enable-threads \
 --enable-sse2 \
+--enable-float \
+--with-pic
+make all
+
+cd ${WORKSPACE}/${NAME}-${VERSION}/build-${BUILD_NUMBER}-double
+CFLAGS='-fPIC' ../configure \
+--prefix=$SOFT_DIR-gcc-${GCC_VERSION}-mpi-${OPENMPI_VERSION} \
+--enable-mpi \
+--enable-openmp \
+--enable-shared \
+--enable-threads \
+--enable-long-double \
 --with-pic
 make all

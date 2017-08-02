@@ -3,17 +3,12 @@
 . /etc/profile.d/modules.sh
 echo ${SOFT_DIR}
 module add deploy
-module add mpc
-module add mpfr
-module add gmp
 module add gcc/${GCC_VERSION}
 module add openmpi/${OPENMPI_VERSION}-gcc-${GCC_VERSION}
-# we need sse and single precision for gromacs
-echo ${SOFT_DIR}-gcc-${GCC_VERSION}-mpi-${OPENMPI_VERSION}
-cd ${WORKSPACE}/${NAME}-${VERSION}/build-${BUILD_NUMBER}
-make distclean
+cd ${WORKSPACE}/${NAME}-${VERSION}/build-${BUILD_NUMBER}-float
+rm -rf  *
 echo "All tests have passed, will now build into ${SOFT_DIR}-gcc-${GCC_VERSION}"
-echo "Configuring the deploy"
+echo "Configuring deploy for float"
 CFLAGS='-fPIC' ../configure  \
 --prefix=$SOFT_DIR-gcc-${GCC_VERSION}-mpi-${OPENMPI_VERSION} \
 --enable-mpi \
@@ -21,6 +16,21 @@ CFLAGS='-fPIC' ../configure  \
 --enable-shared \
 --enable-threads \
 --enable-sse2
+make all
+make install
+
+cd ${WORKSPACE}/${NAME}-${VERSION}/build-${BUILD_NUMBER}-double
+rm -rf  *
+echo "All tests have passed, will now build into ${SOFT_DIR}-gcc-${GCC_VERSION}"
+echo "Configuring deploy for double"
+CFLAGS='-fPIC' ../configure \
+--prefix=$SOFT_DIR-gcc-${GCC_VERSION}-mpi-${OPENMPI_VERSION} \
+--enable-mpi \
+--enable-openmp \
+--enable-shared \
+--enable-threads \
+--enable-long-double \
+--with-pic
 make all
 make install
 echo "Creating the modules file directory ${LIBRARIES}"
@@ -34,10 +44,6 @@ proc ModulesHelp { } {
     puts stderr "       This module does nothing but alert the user"
     puts stderr "       that the [module-info name] module is not available"
 }
-module add gmp
-module add mpfr
-module add mpc
-module add ncurses
 module add gcc/${GCC_VERSION}
 module add openmpi/${OPENMPI_VERSION}-gcc-${GCC_VERSION}
 
