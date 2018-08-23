@@ -4,13 +4,14 @@
 
 Build and test scripts necessary to deploy FFTW3
 
-# Versions
+## Versions
 
 We build versions :
 
   * 3.3.6
+  * 3.3.8
 
-# Dependencies
+## Dependencies
 
 The following dependencies are required by these builds :
 
@@ -18,7 +19,7 @@ The following dependencies are required by these builds :
   * OpenMPI (several versions)
 
 
-# Build configuration
+## Build configuration
 
 Using only SSE2 for mixed precision. Configuration is :
 
